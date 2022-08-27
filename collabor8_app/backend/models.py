@@ -19,7 +19,7 @@ class Room(models.Model):
 
 class Teammate(models.Model):
     display_name = models.CharField(max_length=20, blank=False, unique=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, blank=False, null=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     is_admin = models.BooleanField(default=False)
     temp_user = models.BooleanField(default=False)
@@ -37,8 +37,8 @@ class Teammate(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=20, blank=False, null=False, unique=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=False, blank=False)
+    name = models.CharField(max_length=20, blank=False, null=False)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, blank=False, null=False)
 
 
 class TeammateSkill(models.Model):
