@@ -9,6 +9,7 @@ class User(models.Model):
 class Room(models.Model):
     name = models.CharField(max_length=24, blank=False, null=False)
     duration = models.FloatField(blank=False)
+    admin = models.OneToOneField('Teammate', related_name='Teammate', on_delete=models.SET_NULL, blank=True, null=True, unique=False)
 
     def get_admins(self):
         return Teammate.objects.filter(is_admin=True)
@@ -21,7 +22,6 @@ class Teammate(models.Model):
     display_name = models.CharField(max_length=20, blank=False, unique=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE, blank=False, null=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    is_admin = models.BooleanField(default=False)
     temp_user = models.BooleanField(default=False)
 
     def validate_unique(self, *args, **kwargs) -> None:
