@@ -1,13 +1,15 @@
 import React from 'react'
 // import userIcon from './images/user.ico'
 
+const userLogo = new URL("./userLogo.png", import.meta.url)
+
 export default function UserLogo(prop) {
     return (
         <button
         class="btn btn-secondary"
         style={
             {
-                backgroundImage: "url(/userLogo.png)",
+                backgroundImage: `url(${userLogo})`,
                 width: "52px",
                 height: "52px",
                 margin: "auto",
