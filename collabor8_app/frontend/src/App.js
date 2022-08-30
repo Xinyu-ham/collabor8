@@ -4,16 +4,35 @@ import HomePage from './components/HomePage';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
 import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
+import Box from "@material-ui/core/Box"
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='/join' element={<JoinRoom />} />
-                <Route path='/create' element={<CreateRoom />} />
-            </Routes>
-        </BrowserRouter>
+        <div style={{background: "linear-gradient(45deg, #ffc4a4 20%, #d9cce3 85%)"}}>
+            <Banner user_first_name={"Hamlet"} date={new Date()} auth={true}/>
+            <Box 
+            minHeight='65vh'
+            display="flex"
+            flexDirection="column"
+            align="center"
+            justifyContent='center'
+            padding={10}
+            margin={5}
+            >
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='/join' element={<JoinRoom />} />
+                        <Route path='/create' element={<CreateRoom />} />
+                    </Routes>
+                </BrowserRouter>
+            </Box>
+            <Box 
+            minHeight='35vh'
+            padding={10}
+            margin={5}
+            ></Box>
+        </div>
     );
 }
 

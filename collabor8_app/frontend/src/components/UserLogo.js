@@ -1,12 +1,23 @@
 import React from 'react'
-// import userIcon from './images/user.ico'
+import { useState } from 'react'
+
 
 const userLogo = new URL("./userLogo.png", import.meta.url)
 
 export default function UserLogo(prop) {
+    const [isHover, setIsHover] = useState(false)
+    const handleMouseOn = () => {
+        setIsHover(true);
+    };
+    const handleMouseOff = () => {
+        setIsHover(false);
+    };
+
     return (
         <button
         class="btn btn-secondary"
+        onMouseEnter={handleMouseOn}
+        onMouseLeave={handleMouseOff}
         style={
             {
                 backgroundImage: `url(${userLogo})`,
@@ -18,7 +29,8 @@ export default function UserLogo(prop) {
                 marginTop: "0px",
                 marginBottom: "0px",
                 borderRadius: "50px",
-                borderWidth: "2px"
+                borderColor: isHover ? "steelblue": "gray",
+                borderWidth: isHover ? "2.5px": "2px",
             }
         }
         >

@@ -1,26 +1,109 @@
 import React from 'react'
 import UserLogo from './UserLogo'
-
+import { animated, useSpring } from 'react-spring'
+import { useState } from 'react'
+import AppBar from '@material-ui/core/AppBar';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from "@material-ui/core/Box";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 export default function Banner(prop) {
+    const [isHover, setIsHover] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+
+    const staticTitle = (
+        <h1>
+            <span style={{color: '#000000'}}>C</span>
+            <span style={{color: '#f6c1b2ff'}}>8</span>
+        </h1>
+    )
+
+    const style = useSpring({
+         x: isHover ? 0 : -300
+    });
+
+    const dynamicTitle = (
+        <animated.div style={style}>
+            <h1>
+                <span style={{color: '#000000'}}>Collabor</span>
+                <span style={{color: '#f6c1b2ff'}}>8</span>
+            </h1>
+        </animated.div>
+    )
+    
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = (event) => {
+        setAnchorEl(null)
+    }
+
     return (
-        <header class="py-3 mb-3 border-bottom bg-light">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-4">
-                        <h1>
-                            <span style={{color: '#000000'}}>Collabor</span>
-                            <span style={{color: '#f6c1b2ff'}}>8</span>
-                        </h1>
-                    </div>
-                    <div class="col-4">
-                        <h3 style={{color: '#666666'}}>{prop.date.toLocaleTimeString()}</h3>
-                    </div>
-                    <div class="col-4">
-                        <UserLogo first_name={prop.user_first_name}/>
-                    </div>
+        <AppBar position="static" 
+        onMouseEnter={() => {setIsHover(true);}}
+        onMouseLeave={() => {setIsHover(false);}}
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.3)"}}
+        >
+            <Toolbar padding={1} margin={1}>
+                <Typography
+                variant="h3"
+                noWrap
+                component="a"
+                href="/"
+                style={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    color: "inherit",
+                    letterSpacing: '.3rem',
+                    textDecoration: 'none',
+                    underline: 'none',
+                    flexGrow: 1
+                }}
+                >
+                    {isHover ? dynamicTitle : staticTitle}
+                </Typography>
+                <div>
+                    <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                    alignItem="right"
+                    marginRight={0}
+                    marginLeft="auto"
+                    >
+                        <UserLogo first_name={"Hamlet"} />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                        }}
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>My projects</MenuItem>
+                    </Menu>
                 </div>
-            </div>
-        </header>
+            </Toolbar>
+        </AppBar>
+
     )
 }
