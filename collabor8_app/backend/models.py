@@ -1,5 +1,15 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+import string, random
+
+def generate_room_code():
+    k = 6
+
+    while True:
+        code = ''.join(random.choices(string.ascii_uppercase, k=k))
+        if Room.objects.filter(code=code).count() == 0:
+            break
+    return code
 
 # Create your models here.
 class User(models.Model):
@@ -8,11 +18,13 @@ class User(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=24, blank=False, null=False)
-    duration = models.FloatField(blank=False)
-    admin = models.OneToOneField('Teammate', related_name='Teammate', on_delete=models.SET_NULL, blank=True, null=True, unique=False)
+    deadline = models.DateTimeField(blank=False, null=False)
+    # admin = models.OneToOneField('Teammate', related_name='Teammate', on_delete=models.SET_NULL, blank=True, null=True, unique=False)
+    admin = models.CharField(max_length=50, null=True)
+    code = models.CharField(max_length=6, default=generate_room_code, unique=True)
 
     def get_admins(self):
-        return Teammate.objects.filter(is_admin=True)
+        return self.admin
 
     def __str__(self):
         return self.name + ':' + self.id

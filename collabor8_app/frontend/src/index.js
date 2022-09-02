@@ -4,10 +4,4 @@ import App from './App';
 import "./index.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-function renderRoot() {   
-    root.render(<App />);
-}
-
-
-setInterval(renderRoot, 1000)
+root.render(<App />);

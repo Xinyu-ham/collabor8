@@ -16,7 +16,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class GetRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('id', 'name', 'duration', 'admin')
+        fields = ('id', 'name', 'deadline', 'admin', 'code')
+
+
+class CreateRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('name', 'deadline')
 
 
 class GetTeammateSerializer(serializers.ModelSerializer):
