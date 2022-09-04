@@ -4,7 +4,7 @@ import HomePage from './components/HomePage';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
 import Room from './components/Room';
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Box from "@material-ui/core/Box"
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
                         <Route path='/' element={<HomePage />} />
                         <Route path='/join' element={<JoinRoom />} />
                         <Route path='/create' element={<CreateRoom />} />
-                        <Route path='/room/:roomId' element={<Room />} />
+                        <Route path='/room/:code' element={<Room />} />
                     </Routes>
                 </BrowserRouter>
             </Box>

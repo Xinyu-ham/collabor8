@@ -137,3 +137,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/build/static')
 ]
+
+DATE_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S']

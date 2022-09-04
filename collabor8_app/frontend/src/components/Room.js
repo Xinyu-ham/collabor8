@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 export default function Room(props) {
-    const { roomId } = useParams()
+    const { code } = useParams()
     const [data, setData] = useState({
         name: 'Room ID not found.',
         code: null,
@@ -12,7 +12,7 @@ export default function Room(props) {
     })
 
     useEffect(() => {
-        fetch('/api/get-room?id=' + roomId.toString()).then((response) => {
+        fetch('/api/get-room?code=' + code.toString()).then((response) => {
             return response.json()
         }).then((data) => {
             setData(
@@ -24,7 +24,7 @@ export default function Room(props) {
                 }
             );
         });
-    });
+    }, []);
 
     return (
         <div align="left">
