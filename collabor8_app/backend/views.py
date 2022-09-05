@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from rest_framework import generics, status
 from .models import User, Room
 from .serializers import GetUserSerializer, CreateUserSerializer, GetRoomSerializer, CreateRoomSerializer
@@ -42,7 +43,7 @@ class GetAllRoomsView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = GetRoomSerializer
 
-class GetRoomView(generics.ListAPIView):
+class GetRoomView(APIView):
     lookup_url_kwarg = 'code'
     serializer_class = GetRoomSerializer
 
@@ -76,3 +77,21 @@ class CreateRoomView(APIView):
             print(data)
             return Response(data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class JoinRoomView(APIView):
+    lookup_url_kwarg = 'code'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code:
+            rooms = Room.objects.filter(code=code)
+            if len(rooms):
+                return Response({
+                    "message": "joined room"
+                }, status=status.HTTP_200_OK)
+            return Response({
+                "message": "invalid code"
+            }, status=status.HTTP_404_NOT_FOUND)
+        return Response({
+                "message": "empty code"
+            }, status=status.HTTP_400_BAD_REQUEST)

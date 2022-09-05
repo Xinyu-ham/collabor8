@@ -12,7 +12,7 @@ function App() {
         <div style={{background: "linear-gradient(45deg, #efc4a4 20%, #d9cce3 85%)"}}>
             <Banner user_first_name={"Hamlet"} date={new Date()} auth={true}/>
             <Box 
-            minHeight='65vh'
+            minHeight='50vh'
             display="flex"
             flexDirection="column"
             align="center"

@@ -8,6 +8,7 @@
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styled-engine-sc": "^5.0.0-alpha.11",
+    "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.10.3",
     "@mui/styled-engine": "^5.10.3",
     "@mui/styled-engine-sc": "^5.10.3",

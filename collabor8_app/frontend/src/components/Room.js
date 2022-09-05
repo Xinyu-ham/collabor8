@@ -28,8 +28,8 @@ export default function Room(props) {
 
     return (
         <div align="left">
-            <h3>This is a room</h3>
-            <p>Room ID: {data.name}</p>
+            <h3>Welcome to project {data.name}</h3>
+            <p>Room code: {data.code}</p>
         </div>
     )
 }

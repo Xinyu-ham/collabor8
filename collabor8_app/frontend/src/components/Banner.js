@@ -62,10 +62,13 @@ export default function Banner(prop) {
                     fontFamily: 'monospace',
                     fontWeight: 700,
                     color: "inherit",
-                    letterSpacing: '.3rem',
+                    letterSpacing: '.5rem',
                     textDecoration: 'none',
                     underline: 'none',
-                    flexGrow: 1
+                    flexGrow: 1,
+                    maxHeight: 100,
+                    fontSize: '1.5rem',
+                    
                 }}
                 >
                     {isHover ? dynamicTitle : staticTitle}
