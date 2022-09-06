@@ -3,19 +3,17 @@ import UserLogo from './UserLogo'
 import { animated, useSpring } from 'react-spring'
 import { useState } from 'react'
 import AppBar from '@material-ui/core/AppBar';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from "@material-ui/core/Box";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
 
 export default function Banner(prop) {
     const [isHover, setIsHover] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
-
     const staticTitle = (
         <h1>
             <span style={{color: '#000000'}}>C</span>
@@ -101,7 +99,9 @@ export default function Banner(prop) {
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <Link to='/login' style={{textDecoration: "none", color: 'black'}}>
+                            <MenuItem>Profile</MenuItem>
+                        </Link>
                         <MenuItem onClick={handleClose}>My projects</MenuItem>
                     </Menu>
                 </div>
