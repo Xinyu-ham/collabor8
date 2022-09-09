@@ -67,7 +67,7 @@ export default function CreateRoom() {
                             <div align="center">Name of project</div>
                         </FormHelperText>
                         <TextField
-                        required={true}
+                        required
                         error={error}
                         label="Required"
                         variant="standard"
@@ -84,7 +84,7 @@ export default function CreateRoom() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                         required
-                        label="Required"
+                        label="Required *"
                         inputFormat='MM/DD/YYYY HH:mm'
                         value={date}
                         onChange={(val) => {setDate(val);}}

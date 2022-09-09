@@ -18,17 +18,16 @@ function App() {
     return (
         <div style={{background: "linear-gradient(62deg, #8EC5FC 30%, #E0C3FC 70%)"}}>
             <BrowserRouter>
-            <Banner user_first_name={"Hamlet"} date={new Date()} auth={true}/>
-            <Box 
-            minHeight='50vh'
-            display="flex"
-            flexDirection="column"
-            align="center"
-            justifyContent='center'
-            padding={10}
-            margin={5}
-            >
-                
+                <Banner user_first_name={"Hamlet"} date={new Date()} auth={true}/>
+                <Box 
+                minHeight='50vh'
+                display="flex"
+                flexDirection="column"
+                align="center"
+                justifyContent='center'
+                padding={10}
+                margin={5}
+                >
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='/join' element={<JoinRoom />} />
@@ -40,13 +39,12 @@ function App() {
                         <Route path='/reset-password-confirmed/:uid/:token' element={<ResetPasswordConfirmation />} />
                         <Route path='/activate/:uid/:token' element={<Activate />} />
                     </Routes>
-                
-            </Box>
-            <Box 
-            minHeight='35vh'
-            padding={10}
-            margin={5}
-            ></Box>
+                </Box>
+                <Box 
+                minHeight='35vh'
+                padding={10}
+                margin={5}
+                ></Box>
             </BrowserRouter>
         </div>
     );

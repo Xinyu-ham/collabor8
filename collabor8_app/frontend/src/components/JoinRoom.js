@@ -25,13 +25,13 @@ export default function JoinRoom() {
 
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
+        <Grid container spacing={2} style={{ paddingLeft: "5%", paddingRight: "5%"}}>
+            <Grid item xs={12} alignContent="center">
                 <Typography component='h4' variant='h4'>
                     Join a project
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} alignContent="center">
                 <FormControl fullWidth>
                     <TextField 
                     error={error}
@@ -48,7 +48,7 @@ export default function JoinRoom() {
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} alignContent="center">
                 <Box justifyContent="space-between" display="flex">
                     <Button color="primary" onClick={handleJoinButton}>Join</Button>
                     <Button color="secondary" to="/" component={Link}>Back</Button>
