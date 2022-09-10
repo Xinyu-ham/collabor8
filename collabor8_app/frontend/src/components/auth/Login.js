@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { Grid, Modal, Typography, Box, FormControl, FormHelperText, TextField, Button, ButtonGroup} from '@material-ui/core'
-import { useNavigate } from 'react-router-dom';
+import { Grid, Modal, Typography, Box, FormControl, FormHelperText, TextField, Button} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert';
+import { Link, useNavigate } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
-
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
 
 const style = {
   position: 'absolute',
@@ -20,8 +22,8 @@ const style = {
   opacity: 0.75,
   p: 4,
 };
-
-export default function Login() {
+ 
+function Login({ login, isAuthenticated }) {
   const [open, toggle] = useState(true)
   const navigate = useNavigate()
   const [cred, setCred] = useState({
@@ -37,12 +39,23 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [dirty, setDirty] = useState(false);
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
   const onEmailChange = e => {
     const val = e.target.value;
 
     setEmail(val);
     setEmailValid(isEmail(val));
+  }
+
+  const handleLogin = () => {
+    login(email, password);
+    setError(true)
+  }
+
+  if (isAuthenticated) {
+    navigate(-1);
   }
 
   return (
@@ -62,9 +75,10 @@ export default function Login() {
           }}
         >
           <Grid item xs={12}>
-            <Typography id="modal-modal-title" variant="h5" component="h2">
+            <Typography id="modal-modal-title" variant="h4" component="h2">
             Log In
             </Typography> 
+            {error && <Alert severity="warning">The email or password provided is incorrect.</Alert>}
           </Grid>
           <Grid item xs={12}>
             <FormControl margin="normal" fullWidth>
@@ -96,15 +110,26 @@ export default function Login() {
                   variant="outlined"
                   type="password"
                   hintText="Password"
+                  value={password}
+                  onChange={e => {setPassword(e.target.value)}}
                 />
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button color="primary" variant='contained'>Log In</Button>
-            <Button color="secondary" varient='underlined'>Sign Up</Button>
+            <Button color="primary" variant='contained' onClick={handleLogin}>Log In</Button>
+            <Button color="secondary" varient='underlined' to="/signup" component={Link}>Sign Up</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><Link to='/reset-password' style={{ color: 'steelblue', textDecoration: 'inherit'}}>Forgot your password?</Link></Typography>
           </Grid>
         </Grid>
       </Box>
     </Modal>
   )
 }
+
+const mapStateToProps = state => ({
+  // isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(Login);
