@@ -3,8 +3,51 @@ import {
     LOGIN_SUCCESS, 
     LOGIN_FAILED, 
     LOAD_USER_SUCCESS, 
-    LOAD_USER_FAILED 
+    LOAD_USER_FAILED,
+    AUTHENTICATION_SUCCESS,
+    AUTHENTICATION_FAILED,
+    LOGOUT
 } from "./types";
+
+export const checkAuthenticated = () => async dispatch => {
+    if (localStorage.getItem('access')) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+
+        const body = JSON.stringify({ token: localStorage.getItem('access') })
+
+        try {
+            const response = await axios.post("/auth/jwt/verify/", body, config)
+            if (response.data.code !== 'token_not_valid') {
+                dispatch(
+                    {type: AUTHENTICATION_SUCCESS}
+                )
+            } else {
+                dispatch(
+                    {type: AUTHENTICATION_FAILED}
+                )
+            };
+        } catch(err) {
+            dispatch(
+                {type: AUTHENTICATION_FAILED}
+            )
+        };
+    } else {
+        dispatch(
+            {type: AUTHENTICATION_FAILED}
+        )
+    };
+};
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
+};
 
 export const load_user = () => async dispatch => {
     if (localStorage.getItem('access')) {
@@ -28,7 +71,6 @@ export const load_user = () => async dispatch => {
         } catch (err) {
             dispatch({
                 type: LOAD_USER_FAILED,
-                payload: err
             })
         };
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserLogo from './UserLogo'
 import { animated, useSpring } from 'react-spring'
 import { useState } from 'react'
@@ -8,9 +8,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function Banner(prop) {
+import { connect } from 'react-redux';
+import { checkAuthenticated, load_user, logout } from '../actions/auth'
+
+function Banner(prop) {
+    const naviagte = useNavigate()
     const [isHover, setIsHover] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
@@ -39,8 +43,62 @@ export default function Banner(prop) {
     }
 
     const handleClose = (event) => {
-        setAnchorEl(null)
+        setAnchorEl(null);
     }
+
+    const handleLogin = (event) => {
+        naviagte('/login')
+        setAnchorEl(null);
+    }
+
+    const handleLogout = (event) => {
+        prop.logout();
+        setAnchorEl(null);
+    }
+
+    useEffect(
+        () => {
+            prop.checkAuthenticated();
+            prop.load_user();
+        }, []
+    )
+
+    const MenuItems = () => {
+        if (!prop.isAuthenticated) {
+            return (
+                <div>
+                    <MenuItem onClick={handleLogin}>Log In</MenuItem>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My projects</MenuItem>
+                    <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                </div>
+            )
+        }
+        
+    };
+
+    const Logo = () => {
+        if (!prop.isAuthenticated) {
+            return (
+                <div>
+                    <UserLogo first_name={"?"} />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <UserLogo first_name={"Hamlet"} />
+                </div>
+            )
+        }
+        
+    };
+
 
     return (
         <AppBar position="static" 
@@ -82,7 +140,7 @@ export default function Banner(prop) {
                     marginRight={0}
                     marginLeft="auto"
                     >
-                        <UserLogo first_name={"Hamlet"} />
+                        <Logo/>
                     </IconButton>
                     <Menu
                         id="menu-appbar"
@@ -99,14 +157,18 @@ export default function Banner(prop) {
                         open={open}
                         onClose={handleClose}
                     >
-                        <Link to='/login' style={{textDecoration: "none", color: 'black'}}>
-                            <MenuItem>Profile</MenuItem>
-                        </Link>
-                        <MenuItem onClick={handleClose}>My projects</MenuItem>
+                        <MenuItems />
                     </Menu>
                 </div>
             </Toolbar>
         </AppBar>
 
     )
-}
+};
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.isAuthenticated
+});
+
+
+export default connect(mapStateToProps, { checkAuthenticated, load_user, logout })(Banner);

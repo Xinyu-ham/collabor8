@@ -26,10 +26,6 @@ const style = {
 function Login({ login, isAuthenticated }) {
   const [open, toggle] = useState(true)
   const navigate = useNavigate()
-  const [cred, setCred] = useState({
-    email: '',
-    password: ''
-  })
 
   const handleClose = () => {
     toggle(!open);
@@ -51,12 +47,14 @@ function Login({ login, isAuthenticated }) {
 
   const handleLogin = () => {
     login(email, password);
-    setError(true)
-  }
+    if (!isAuthenticated) {
+      setError(true);
+    };
+  };
 
   if (isAuthenticated) {
     navigate(-1);
-  }
+  };
 
   return (
     <Modal
@@ -129,7 +127,7 @@ function Login({ login, isAuthenticated }) {
 }
 
 const mapStateToProps = state => ({
-  // isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.isAuthenticated
 });
 
 export default connect(mapStateToProps, { login })(Login);
