@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import UserLogo from './UserLogo'
+import GuestLogo from './GuestLogo'
 import { animated, useSpring } from 'react-spring'
 import { useState } from 'react'
 import AppBar from '@material-ui/core/AppBar';
@@ -86,7 +87,7 @@ function Banner(prop) {
         if (!prop.isAuthenticated) {
             return (
                 <div>
-                    <UserLogo first_name={"?"} />
+                    <GuestLogo />
                 </div>
             )
         } else {

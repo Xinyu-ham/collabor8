@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Box from "@material-ui/core/Box"
+import { Box, Grid, ButtonGroup, IconButton, Typography } from "@material-ui/core"
+import { GitHub, Instagram, Facebook } from '@mui/icons-material'
+import { makeStyles } from '@material-ui/styles';
 
 import Banner from './components/Banner';
 import HomePage from './components/HomePage';
@@ -15,19 +17,44 @@ import ResetPassword from './components/auth/ResetPassword';
 import ResetPasswordConfirmation from './components/auth/ResetPasswordConfirmation';
 
 
+const boxStyles = makeStyles((theme) => ({
+    root: {
+        background: "linear-gradient(62deg, #8EC5FC 30%, #E0C3FC 70%)",
+        overflow: "hidden",
+        overflowY: "auto",
+        scrollBehavior: "smooth",
+        height: '100vh',
+        '&::-webkit-scrollbar': {
+            width: '8px',
+        },
+        '&::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        },
+        '&::-webkit-scrollbar-thumb': {
+            borderRadius: '10px',
+            backgroundColor: 'rgba(0,0,0,.15)',    
+
+        },
+        '&:active::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0,0,0,.25)',   
+        }
+    }
+}));
+
 function App() {
+    const classes = boxStyles();
     return (
-            <div style={{background: "linear-gradient(62deg, #8EC5FC 30%, #E0C3FC 70%)"}}>
+            <Box className={classes.root}>
                 <BrowserRouter>
                     <Banner user_first_name={"Hamlet"} date={new Date()} auth={true}/>
-                    <Box 
-                    minHeight='50vh'
+                    <Box
+                    minHeight='550px' 
+                    height='100vh'
                     display="flex"
                     flexDirection="column"
                     align="center"
                     justifyContent='center'
-                    padding={10}
-                    margin={5}
                     >
                         <Routes>
                             <Route path='/' element={<HomePage />} />
@@ -41,13 +68,34 @@ function App() {
                             <Route path='/activate/:uid/:token' element={<Activate />} />
                         </Routes>
                     </Box>
-                    <Box 
-                    minHeight='35vh'
-                    padding={10}
-                    margin={5}
-                    ></Box>
                 </BrowserRouter>
-            </div>
+                <Box
+                display='flex' spacing={1} flexDirection="column" justifyContent='center'
+                sx={{
+                    minHeight: '100px',
+                    height: '10%',
+                    backgroundColor: '#EEEEEE',
+                    opacity: [0.5],
+                    '&:hover': {
+                    backgroundColor: 'white',
+                    opacity: [0.7],
+                    },
+                }}
+                >
+                    <Grid container align='center'>
+                        <Grid item xs={6}>
+                            <ButtonGroup variant="text">
+                                <IconButton><GitHub /></IconButton>
+                                <IconButton><Instagram /></IconButton>
+                                <IconButton><Facebook /></IconButton>
+                            </ButtonGroup>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography component='p' variant='p'>© Some copyright text</Typography>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
     );
 }
 

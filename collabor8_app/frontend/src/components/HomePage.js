@@ -9,7 +9,7 @@ export default function HomePage() {
         <Grid 
         container spacing={4}
         alignContent="center"
-        direction="column"
+        direction="row"
         justifyContent='center'
         display="flex"
         >

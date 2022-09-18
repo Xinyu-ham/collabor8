@@ -53,9 +53,15 @@ export default function CreateRoom() {
         }
     };
 
+    const handleEnterKey = (e) => {
+        if (e.key==="Enter") {
+            handleCreate()
+        }
+    }
+
     return (
         <div>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{padding:'10%'}}>
                 <Grid item xs={12}>
                     <Typography component='h4' variant='h4'>
                         Create a room for your project
@@ -73,6 +79,7 @@ export default function CreateRoom() {
                         variant="standard"
                         onChange={(val) => {setName(val.target.value);}}
                         helperText={error}
+                        onKeyDown={handleEnterKey}
                         />
                     </FormControl>
                 </Grid>

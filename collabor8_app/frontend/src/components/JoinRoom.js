@@ -23,9 +23,14 @@ export default function JoinRoom() {
         }
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key==="Enter") {
+            handleJoinButton()
+        }
+    }
 
     return (
-        <Grid container spacing={2} style={{ paddingLeft: "5%", paddingRight: "5%"}}>
+        <Grid container spacing={2} style={{ paddingLeft: "10%", paddingRight: "10%"}}>
             <Grid item xs={12} alignContent="center">
                 <Typography component='h4' variant='h4'>
                     Join a project
@@ -45,6 +50,7 @@ export default function JoinRoom() {
                         ),
                     }}
                     onChange={(val) => {setCode(val.target.value);}}
+                    onKeyDown={handleKeyDown}
                     />
                 </FormControl>
             </Grid>

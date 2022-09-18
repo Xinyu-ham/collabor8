@@ -12,6 +12,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '35%',
+  minWidth: '250px',
   // height: '350px',
   display: 'flex',
   flexDirection: 'column',

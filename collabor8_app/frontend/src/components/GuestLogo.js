@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-const userLogo = new URL("./userLogo.png", import.meta.url)
+const userLogo = new URL("./guestLogo.png", import.meta.url)
 
 export default function GuestLogo(prop) {
     const [isHover, setIsHover] = useState(false)
@@ -21,6 +21,7 @@ export default function GuestLogo(prop) {
         style={
             {
                 backgroundImage: `url(${userLogo})`,
+                backgroundSize: '48px',
                 width: "52px",
                 height: "52px",
                 margin: "auto",
@@ -33,24 +34,6 @@ export default function GuestLogo(prop) {
                 borderWidth: isHover ? "2.5px": "2px",
             }
         }
-        >
-            <p
-            style={
-                {
-                    margin: "auto",
-                    fontSize: "16px",
-                    color: "white",
-                    height: "50px",
-                    width: "50px",
-                    borderRadius: "50px",
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: 'center',
-                }
-            }
-            >
-                {prop.first_name.charAt(0)}
-            </p>
-        </button>
+        />
     )
 }
