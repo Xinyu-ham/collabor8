@@ -9,13 +9,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { checkAuthenticated, load_user, logout } from '../actions/auth'
 
 function Banner(prop) {
-    const naviagte = useNavigate()
+    const navigate = useNavigate()
     const [isHover, setIsHover] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl)
@@ -48,7 +48,7 @@ function Banner(prop) {
     }
 
     const handleLogin = (event) => {
-        naviagte('/login')
+        navigate('/login')
         setAnchorEl(null);
     }
 
@@ -74,7 +74,7 @@ function Banner(prop) {
         } else {
             return (
                 <div>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={() => {navigate('/profile')}}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My projects</MenuItem>
                     <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                 </div>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Grid, Modal, Typography, Box, FormControl, FormHelperText, TextField, Button} from '@material-ui/core'
+import React, { useState, useEffect } from 'react'
+import { CircularProgress, Grid, Modal, Typography, Box, FormControl, FormHelperText, TextField, Button} from '@material-ui/core'
+import Backdrop from '@mui/material/Backdrop';
 import Alert from '@material-ui/lab/Alert';
 import { Link, useNavigate } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
@@ -38,6 +39,7 @@ function Login({ login, isAuthenticated }) {
   const [dirty, setDirty] = useState(false);
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const onEmailChange = e => {
     const val = e.target.value;
@@ -48,14 +50,21 @@ function Login({ login, isAuthenticated }) {
 
   const handleLogin = () => {
     login(email, password);
-    if (!isAuthenticated) {
-      setError(true);
-    };
+    setLoading(!loading)
+    setTimeout(() => {
+      console.log('Waiting for login response')
+    }, 1000);
+    setLoading(false);
+    setError(true);
   };
 
-  if (isAuthenticated) {
-    navigate(-1);
-  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLoading(false);
+      navigate(-1);
+    }
+  }, [isAuthenticated])
+
 
   return (
     <Modal
@@ -116,6 +125,11 @@ function Login({ login, isAuthenticated }) {
           </Grid>
           <Grid item xs={12}>
             <Button color="primary" variant='contained' onClick={handleLogin}>Log In</Button>
+            <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <Button color="secondary" varient='underlined' to="/signup" component={Link}>Sign Up</Button>
           </Grid>
           <Grid item xs={12}>

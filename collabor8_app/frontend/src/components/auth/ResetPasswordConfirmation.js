@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CircularProgress, Grid, Typography, Box, FormControl, FormHelperText, TextField, Button } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
+import { Alert } from '@material-ui/lab'
+import Backdrop from '@mui/material/Backdrop';
 import { useNavigate, useParams } from 'react-router-dom'
 import { passwordResetConfirmation } from '../../actions/auth'
 import { connect } from 'react-redux'
@@ -33,9 +34,6 @@ function ResetPasswordConfirmation({ passwordResetConfirmation, passwordResetSta
     }
   }, [passwordResetStatus])
   
-  const LoadingCircle = (
-    <CircularProgress color="primary" />
-  )
 
   const ResetPasswordForm = (
     <Grid container spacing={2}>
@@ -81,9 +79,13 @@ function ResetPasswordConfirmation({ passwordResetConfirmation, passwordResetSta
         </FormControl>
       </Grid>
       <Grid item xs={12}>
-        {loading ? LoadingCircle : null}
         <Box justifyContent="space-between" display="flex">
           <Button disabled={!passwordMatch || loading} color="primary" variant='outlined' onClick={handleSubmit}>Confirm</Button>
+          <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Button color="secondary" varient='standard' onClick={() => {navigate('/')}}>Back to Home</Button>
         </Box>
       </Grid>

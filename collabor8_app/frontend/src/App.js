@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import Activate from './components/auth/Activate';
 import ResetPassword from './components/auth/ResetPassword';
 import ResetPasswordConfirmation from './components/auth/ResetPasswordConfirmation';
+import Profile from './components/Profile'
 
 
 const boxStyles = makeStyles((theme) => ({
@@ -66,6 +67,7 @@ function App() {
                             <Route path='/reset-password' element={<ResetPassword />} />
                             <Route path='/reset-password-confirmed/:uid/:token' element={<ResetPasswordConfirmation />} />
                             <Route path='/activate/:uid/:token' element={<Activate />} />
+                            <Route path='/profile' element={<Profile />} />
                         </Routes>
                     </Box>
                 </BrowserRouter>

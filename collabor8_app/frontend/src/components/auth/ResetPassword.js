@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CircularProgress, Grid, Typography, Box, FormControl, FormHelperText, TextField, Button } from '@material-ui/core'
+import Backdrop from '@mui/material/Backdrop';
 import { Alert, AlertTitle } from '@material-ui/lab'
 import isEmail from 'validator/lib/isEmail';
 import { useNavigate } from 'react-router-dom';
@@ -48,10 +49,6 @@ function ResetPassword({ sendResetEmail, passwordResetStatus }) {
     </Grid>
   );
 
-  const LoadingCircle = (
-    <CircularProgress color="primary" />
-  )
-
   const ResetPasswordForm = (
     <Grid container spacing={2}>
       { resetSuccess === null ? null : ResetPasswordFailed }
@@ -76,9 +73,13 @@ function ResetPassword({ sendResetEmail, passwordResetStatus }) {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          {loading ? LoadingCircle : null}
           <Box justifyContent="space-between" display='flex'>
             <Button disabled={!emailValid || loading} variant='outlined' onClick={onSubmit} color='primary'>Reset</Button>
+            <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <Button variant='standard' onClick={() => {navigate(-1)}} color='secondary'>Cancel</Button>
           </Box>
 
