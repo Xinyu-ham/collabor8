@@ -23,7 +23,7 @@ export default function JoinRoom() {
         }
     }
 
-    const handleKeyDown = (e) => {
+    const handleEnterKey = (e) => {
         if (e.key==="Enter") {
             handleJoinButton()
         }
@@ -50,7 +50,7 @@ export default function JoinRoom() {
                         ),
                     }}
                     onChange={(val) => {setCode(val.target.value);}}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={handleEnterKey}
                     />
                 </FormControl>
             </Grid>

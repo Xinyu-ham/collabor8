@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, CircularProgress, Grid, Typography, Box, FormControl, FormHelperText, TextField, Button } from '@material-ui/core'
+import { CircularProgress, Grid, Typography, Box, FormControl, FormHelperText, TextField, Button } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import isEmail from 'validator/lib/isEmail';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { sendResetEmail } from '../../actions/auth';
 import { connect } from 'react-redux'
 
@@ -22,8 +22,6 @@ function ResetPassword({ sendResetEmail, passwordResetStatus }) {
   const onSubmit = (e) => {
     sendResetEmail(email);
     setLoading(!loading);
-    console.log(loading)
-    console.log(passwordResetStatus)
   }
 
   useEffect(() => {
@@ -80,7 +78,7 @@ function ResetPassword({ sendResetEmail, passwordResetStatus }) {
         <Grid item xs={12}>
           {loading ? LoadingCircle : null}
           <Box justifyContent="space-between" display='flex'>
-            <Button disabled={!emailValid} variant='outlined' onClick={onSubmit} color='primary'>Reset</Button>
+            <Button disabled={!emailValid || loading} variant='outlined' onClick={onSubmit} color='primary'>Reset</Button>
             <Button variant='standard' onClick={() => {navigate(-1)}} color='secondary'>Cancel</Button>
           </Box>
 

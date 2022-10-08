@@ -83,6 +83,16 @@ export default function auth(state = initialState, action) {
                 isAuthenticated: false,
                 user: null
             }
+        case RESET_PASSWORD_CONFIRMED_SUCCESS:
+            return {
+                ...state,
+                passwordResetStatus: payload
+            }
+        case RESET_PASSWORD_CONFIRMED_FAILED:
+            return {
+                ...state,
+                passwordResetStatus: payload
+            }
         default:
             return state
     }

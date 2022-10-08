@@ -103,6 +103,8 @@ export const login = (email, password) => async dispatch => {
     };
 };
 
+
+
 export const sendResetEmail = (email) => async dispatch => {
     const config = {
         headers: {
@@ -121,6 +123,34 @@ export const sendResetEmail = (email) => async dispatch => {
     } catch (err) {
         dispatch({
             type: PASSWORD_RESET_FAILED,
+            payload: err.response.status
+        })
+    }
+}
+
+export const passwordResetConfirmation = (uid, token, new_password, re_new_password) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    
+    const body = JSON.stringify({
+        uid: uid,
+        token: token,
+        new_password: new_password,
+        re_new_password: re_new_password
+    })
+
+    try {
+        const response = await axios.post('/auth/users/reset_password_confirm/', body, config)
+        dispatch({
+            type: RESET_PASSWORD_CONFIRMED_SUCCESS,
+            payload: response.status
+        })
+    } catch(err) {
+        dispatch({
+            type: RESET_PASSWORD_CONFIRMED_FAILED,
             payload: err.response.status
         })
     }
