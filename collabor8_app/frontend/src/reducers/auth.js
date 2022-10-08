@@ -5,6 +5,10 @@ import {
     LOAD_USER_FAILED,
     AUTHENTICATION_SUCCESS,
     AUTHENTICATION_FAILED,
+    PASSWORD_RESET_SUCCESS,
+    PASSWORD_RESET_FAILED,
+    RESET_PASSWORD_CONFIRMED_SUCCESS,
+    RESET_PASSWORD_CONFIRMED_FAILED,
     LOGOUT
 } from "../actions/types";
 
@@ -12,7 +16,8 @@ const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: false,
-    user: null
+    user: null,
+    passwordResetStatus: null
 };
 
 export default function auth(state = initialState, action) {
@@ -57,6 +62,16 @@ export default function auth(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false
+            }
+        case PASSWORD_RESET_SUCCESS:
+            return {
+                ...state,
+                passwordResetStatus: payload
+            }
+        case PASSWORD_RESET_FAILED:
+            return {
+                ...state,
+                passwordResetStatus: payload
             }
         case LOGOUT:
             localStorage.removeItem('access');

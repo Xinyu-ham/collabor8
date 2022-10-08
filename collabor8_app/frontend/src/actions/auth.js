@@ -6,6 +6,10 @@ import {
     LOAD_USER_FAILED,
     AUTHENTICATION_SUCCESS,
     AUTHENTICATION_FAILED,
+    PASSWORD_RESET_SUCCESS,
+    PASSWORD_RESET_FAILED,
+    RESET_PASSWORD_CONFIRMED_SUCCESS,
+    RESET_PASSWORD_CONFIRMED_FAILED,
     LOGOUT
 } from "./types";
 
@@ -98,3 +102,26 @@ export const login = (email, password) => async dispatch => {
         })
     };
 };
+
+export const sendResetEmail = (email) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+
+    const body = JSON.stringify( { email: email })
+
+    try {
+        const response = await axios.post("/auth/users/reset_password/", body, config)
+        dispatch({
+            type: PASSWORD_RESET_SUCCESS,
+            payload: response.status
+        })
+    } catch (err) {
+        dispatch({
+            type: PASSWORD_RESET_FAILED,
+            payload: err.response.status
+        })
+    }
+}

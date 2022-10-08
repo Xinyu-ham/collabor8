@@ -7,5 +7,7 @@ urlpatterns = [
     path('create', TemplateView.as_view(template_name='index.html')),
     path('room/<str:code>', TemplateView.as_view(template_name='index.html')),
     path('login', TemplateView.as_view(template_name='index.html')),
-    path('signup', TemplateView.as_view(template_name='index.html'))
+    path('signup', TemplateView.as_view(template_name='index.html')),
+    path('reset-password', TemplateView.as_view(template_name='index.html')),
+    path('reset-password-confirmed/<str:uid>/<str:token>', TemplateView.as_view(template_name='index.html'))
 ]
