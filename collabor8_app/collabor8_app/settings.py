@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -94,6 +95,7 @@ DJOSER = {
     'SEND_CONFIRMATION_EMAIL': True,
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': "reset-password-confirmed/{uid}/{token}",
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'authentication.serializers.UserCreateSerializer',
@@ -108,7 +110,8 @@ SIMPLE_JWT = {
     # 'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     # 'UPDATE_LAST_LOGIN': False,
-
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
 
