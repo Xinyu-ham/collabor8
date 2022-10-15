@@ -2,7 +2,11 @@ import axios from 'axios'
 import {
     LOGIN_SUCCESS, 
     LOGIN_FAILED, 
-    LOAD_USER_SUCCESS, 
+    SIGNUP_SUCCESS,
+    SIGNUP_FAILED,
+    ACTIVATION_SUCCESS,
+    ACTIVATION_FAILED,
+    LOAD_USER_SUCCESS,
     LOAD_USER_FAILED,
     AUTHENTICATION_SUCCESS,
     AUTHENTICATION_FAILED,
@@ -87,7 +91,7 @@ export const login = (email, password) => async dispatch => {
         }
     }
 
-    const body = JSON.stringify({ email:email, password:password });
+    const body = JSON.stringify({ email: email, password: password });
     try {
         const response = await axios.post("/auth/jwt/create/", body, config)
 
@@ -103,6 +107,22 @@ export const login = (email, password) => async dispatch => {
     };
 };
 
+
+export const signup = (first_name, last_name, email, password, re_password) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+
+    const body = JSON.stringify({
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        password: password,
+        re_password: re_password
+    })
+}
 
 
 export const sendResetEmail = (email) => async dispatch => {

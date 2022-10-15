@@ -16,7 +16,8 @@ def generate_room_code():
 class User(models.Model):
     first_name = models.CharField(max_length=12, blank=False, null=False)
     last_name = models.CharField(max_length=20, blank=False, null=False)
-    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE, blank=True, null=True)
+    status = models.CharField(max_length=12, default='pending', blank=False, null=False)
 
 class Room(models.Model):
     name = models.CharField(max_length=24, blank=False, null=False)

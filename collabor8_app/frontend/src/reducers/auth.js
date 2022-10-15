@@ -1,7 +1,11 @@
 import {
     LOGIN_SUCCESS, 
     LOGIN_FAILED, 
-    LOAD_USER_SUCCESS, 
+    SIGNUP_SUCCESS,
+    SIGNUP_FAILED,
+    ACTIVATION_SUCCESS,
+    ACTIVATION_FAILED,
+    LOAD_USER_SUCCESS,
     LOAD_USER_FAILED,
     AUTHENTICATION_SUCCESS,
     AUTHENTICATION_FAILED,
@@ -53,6 +57,14 @@ export default function auth(state = initialState, action) {
                 isAuthenticated: false,
                 user: null
             }
+        case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        case SIGNUP_FAILED:
+        case ACTIVATION_SUCCESS:
+        case ACTIVATION_FAILED:
         case AUTHENTICATION_SUCCESS:
             return {
                 ...state,

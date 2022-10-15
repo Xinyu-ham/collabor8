@@ -1,49 +1,52 @@
 from rest_framework import serializers
 from .models import User, Room, Teammate, Skill, TeammateSkill, \
     Story, Task, TaskRequirement, Timeline, Assignment
+from authentication.serializers import UserCreateSerializer
 
-class GetUserSerializer(serializers.ModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
+    user_account = UserCreateSerializer(required=True)
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name')
+        fields = ('id', 'first_name', 'last_name', 'user_account')
+        read_only_fields = ('id',)
+    
 
-class CreateUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name')
-
-
-class GetRoomSerializer(serializers.ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('id', 'name', 'deadline', 'admin', 'code')
+        read_only_fields = ('id', 'admin', 'code')
 
 
-class CreateRoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('name', 'deadline')
-
-
-class GetTeammateSerializer(serializers.ModelSerializer):
+class TeammateSerializer(serializers.ModelSerializer):
+    room = RoomSerializer(required=True)
     class Meta:
         model = Teammate
-        fields = ('id', 'display_name', 'room_id', 'user_id', 'temp_user')
+        fields = ('id', 'display_name', 'room', 'user', 'temp_user')
+        read_only_fields = ('id',)
 
 
-class GetSkillSerializer(serializers.ModelSerializer):
+class SkillSerializer(serializers.ModelSerializer):
+    room = RoomSerializer(required=True)
     class Meta:
         model = Skill
-        fields = ('id', 'name', 'room_id')
+        fields = ('id', 'name', 'room')
+        read_only_fields = ('id', 'name')
 
 
-class GetTeammateSkillSerializer(serializers.ModelSerializer):
+class TeammateSkillSerializer(serializers.ModelSerializer):
+    teammate = TeammateSerializer(required=True)
+    skill = SkillSerializer(required=True)
     class Meta:
         model = TeammateSkill
-        fields = ('id', 'teammate_id', 'skill_id')
+        fields = ('id', 'teammate', 'skill')
+        read_only_field = ('id',)
 
 
-class GetStorySerializer(serializers.ModelSerializer):
+class StorySerializer(serializers.ModelSerializer):
+    room = RoomSerializer(required=True)
     class Meta:
         model = Story
-        fields = ('id', 'title', 'description', 'room_id')
+        fields = ('id', 'title', 'description', 'room')
+        read_only_fields = ('id',)
